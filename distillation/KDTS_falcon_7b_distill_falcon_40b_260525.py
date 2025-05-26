@@ -90,8 +90,8 @@ plt.tight_layout()
 plt.show()
 
 # Save distilled student model
-student.save_pretrained("../distilled-models-saved/models/falcon-7b-distill-falcon-40b")
-tokenizer.save_pretrained("../distilled-models-saved/tokenizer/falcon-7b-distill-falcon-40b")
+student.save_pretrained("../distilled-models-saved/falcon-7b-distill-falcon-40b")
+tokenizer.save_pretrained("../distilled-models-saved/falcon-7b-distill-falcon-40b")
 
 # Summarization function using student model
 def summarize(text):
