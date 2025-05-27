@@ -1,22 +1,20 @@
 # KD-Text-Summarization
 
 
-
-This repository contains code and assets for **Knowledge Distillation-based Text Summarization** using various large language models. The project involves training and evaluating both **teacher** and **student** models and distilling knowledge from high-capacity models to smaller ones to achieve efficient summarization.
-
 ## 📁 Project Structure
 
 KD-Text-Summarization/
-├── distillation/ # Code related to the distillation process
-├── distilled-models-saved/ # Stores distilled (student) models after training
-├── raw-datasets/ # Original input datasets used for summarization
-├── student-models/ # Summarization evaluation results for student models
-├── summarized-datasets/ # Summarized versions of the datasets
-├── teacher-models/ # Summarization evaluation results for teacher models
-├── venv/ # Python virtual environment (excluded in .gitignore)
+├── distillation/               # Code related to the distillation process
+├── distilled-models-saved/     # Stores distilled (student) models after training
+├── raw-datasets/               # Original input datasets used for summarization
+├── student-models/             # Summarization evaluation results for student models
+├── summarized-datasets/        # Summarized versions of the datasets
+├── teacher-models/             # Summarization evaluation results for teacher models
+├── venv/                       # Python virtual environment (excluded in .gitignore)
 ├── .gitignore
 ├── README.md
 └── requirements.txt
+
 
 
 
