@@ -3,6 +3,7 @@
 
 ## 📁 Project Structure
 
+```text
 KD-Text-Summarization/
 ├── distillation/               # Code related to the distillation process
 ├── distilled-models-saved/     # Stores distilled (student) models after training
