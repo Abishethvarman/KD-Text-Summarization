@@ -15,9 +15,7 @@ KD-Text-Summarization/
 ├── .gitignore
 ├── README.md
 └── requirements.txt
-
-
-
+```
 
 ## 🧠 Knowledge Distillation Workflow
 
