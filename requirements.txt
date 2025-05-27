@@ -16,3 +16,5 @@ accelerate
 sacrebleu
 bert_score
 huggingface_hub
+os
+re
