@@ -16,5 +16,5 @@ accelerate
 sacrebleu
 bert_score
 huggingface_hub
-os
+# os
 re
