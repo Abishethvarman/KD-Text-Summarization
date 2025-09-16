@@ -31,16 +31,19 @@ Please run the files in the following order:
 
 
 cd student-models
+
 KDTS_llama3.1_8b_V2_160925.py
 
 
 
 cd teacher-models
+
 KDTS_llama3.1_70b_V2_160925.py
 
 
 
 cd distillation
+
 KDTS_llama3.1_8b_distill_llama3.1_70b_V2_160925.py
 
 
