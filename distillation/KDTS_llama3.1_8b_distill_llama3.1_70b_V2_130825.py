@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import torch.nn.functional as F
 from torch.optim import AdamW
 from datasets import Dataset
+from datetime import datetime
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from bert_score import score
 import evaluate
@@ -49,12 +50,14 @@ def save_summary_to_csv(csv_path, original, summary):
         df.to_csv(f, header=write_header, index=False)
 
 def save_metrics_to_csv(csv_path, model_name, rouge, bleu, meteor, bert_f1):
+    today = datetime.now().strftime("%Y-%m-%d")
     new_row = {
         "Model": model_name,
         "Average ROUGE-L": f"{rouge:.4f}",
         "Average BLEU": f"{bleu:.4f}",
         "Average METEOR": f"{meteor:.4f}",
-        "BERTScore-F1": f"{bert_f1:.4f}"
+        "BERTScore-F1": f"{bert_f1:.4f}",
+        "Date": today
     }
 
     if os.path.exists(csv_path):
@@ -79,10 +82,11 @@ def save_metrics_to_csv(csv_path, model_name, rouge, bleu, meteor, bert_f1):
         print(f"[INFO] Created new metrics file with {model_name}.")
 
 # File Paths
+today = datetime.now().strftime("%Y-%m-%d")
 text_path = "../raw-datasets/text.txt"
-summary_path = "../summarized-datasets/distilled-model-summarized/llama3.1-8b-distill-llama3.1-70b.csv"
+summary_path = "../summarized-datasets/distilled-model-summarized/llama3.1-8b-distill-llama3.1-70b_{today}.csv"
 metrics_path = "../results/results.csv"
-model_save_path = "../distilled-models-saved/llama3.1-8b-distill-llama3.1-70b"
+model_save_path = "../distilled-models-saved/llama3.1-8b-distill-llama3.1-70b_{today}"
 model_label = "llama3.1-8b-distill-llama3.1-70b"
 
 # Ensure directories

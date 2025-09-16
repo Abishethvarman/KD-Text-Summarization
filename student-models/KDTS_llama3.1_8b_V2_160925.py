@@ -5,6 +5,7 @@ import torch
 import nltk
 import sacrebleu
 from rouge_score import rouge_scorer
+from datetime import datetime
 from nltk.translate.meteor_score import meteor_score
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 import pandas as pd
@@ -33,7 +34,7 @@ def read_input_file(file_path):
 # Summarize text using HF model
 def process_text_with_hf_model(pipeline_model, text):
     prompt = f"Summarize the following text:\n{text}"
-    outputs = pipeline_model(prompt, max_new_tokens=200, do_sample=False)
+    outputs = pipeline_model(prompt, max_new_tokens=200, do_sample=False)    #do_sample --> always picks the most likely next token). This makes outputs deterministic (same input → same summary).
     content = outputs[0]['generated_text'].replace(prompt, '')
     content = re.sub(r"^(here('|’)?s|this is|below is)?\s*(a\s*)?summary\s*(of\s*(the)?\s*text)?[:\-–]*\s*", "", content.strip(), flags=re.IGNORECASE)
     return content.strip()
@@ -57,12 +58,15 @@ def save_summary_to_csv(csv_path, id_val, original, summary):
 
 # Save metrics to results.csv with dynamic column adjustment
 def save_metrics_to_csv(csv_path, model_name, rouge, bleu, meteor, bert_f1):
+    today = datetime.now().strftime("%Y-%m-%d")
     new_row = {
         "Model": model_name,
         "Average ROUGE-L": f"{rouge:.4f}",
         "Average BLEU": f"{bleu:.4f}",
+        
         "Average METEOR": f"{meteor:.4f}",
-        "BERTScore-F1": f"{bert_f1:.4f}"
+        "BERTScore-F1": f"{bert_f1:.4f}",
+        "Date": today
     }
 
     if os.path.exists(csv_path):
@@ -88,10 +92,11 @@ def save_metrics_to_csv(csv_path, model_name, rouge, bleu, meteor, bert_f1):
 
 # Main
 def main():
-    model_name = "meta-llama/Llama-3.1-70B"
-    model_label = "llama3.1_70b"
+    model_name = "meta-llama/Llama-3.1-8B"
+    model_label = "llama3.1_8b"
+    today = datetime.now().strftime("%Y-%m-%d")  # format: 2025-09-16
     input_file = "../raw-datasets/text_30.csv"
-    summary_csv_path = f"../summarized-datasets/teacher-summarized/{model_label}_summarized.csv"
+    summary_csv_path = f"../summarized-datasets/student-summarized/{model_label}_summarized_{today}.csv"
     metrics_csv_path = "../results/results.csv"
 
     print("[INFO] Downloading NLTK resources...")
@@ -103,7 +108,7 @@ def main():
     summarizer = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
     print("[INFO] Ensuring output directories exist...")
-    ensure_dir("../summarized-datasets/teacher-summarized/")
+    ensure_dir("../summarized-datasets/student-summarized/")
     ensure_dir("../results/")
 
     print(f"[INFO] Reading input texts from {input_file}")
@@ -134,7 +139,7 @@ def main():
     print("[INFO] Computing BERTScore-F1...")
     P, R, F1 = score(summaries, [text for _, text in texts], lang="en")
 
-    print("\n[RESULTS] Evaluation Metrics for Teacher Model:llama3.1_70b")
+    print("\n[RESULTS] Evaluation Metrics for Student Model_llama3.1_8b")
     print(f"Average ROUGE-L: {avg_rouge:.4f}")
     print(f"Average BLEU: {avg_bleu:.4f}")
     print(f"Average METEOR: {avg_meteor:.4f}")
