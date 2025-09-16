@@ -30,27 +30,19 @@ pip install -r requirements.txt
 Please run the files in the following order:
 
 
-#### Teacher Models
+cd student-models
+KDTS_llama3.1_8b_V2_160925.py
+
+
 
 cd teacher-models
-
-python KDTS_llama3.1_70b_V1_270525.py
-
-1 - `KDTS_llama3.1_70b_V1_270525.py`
-2 - `KDTS_gemma2_27b_V1_270525.py`
-3 - `KDTS_qwen2.5_72b_V1_270525.py`
-4 - `KDTS_falcon_40b_V1_270525.py`
+KDTS_llama3.1_70b_V2_160925.py
 
 
 
+cd distillation
+KDTS_llama3.1_8b_distill_llama3.1_70b_V2_160925.py
 
-
-Student Models
-
-1 - `KDTS_llama3.1_8b_V1_270525.py`
-2 - `KDTS_gemma2_2b_V1_270525.py`
-3 - `KDTS_qwen2.5_7b_V1_270525.py`
-4 - `KDTS_falcon_7b_V1_270525py`
 
 
 
